@@ -1,0 +1,7 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: arctic-db
+spec:
+  type: ExternalName
+  externalName: dev-arctic-db.cniqalespell.us-east-1.rds.amazonaws.com

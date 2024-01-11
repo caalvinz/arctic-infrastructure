@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: arctic
+  namespace: argocd
+spec:
+  destination:
+    namespace: arctic
+    server: https://kubernetes.default.svc
+  project: default 
+  source: 
+    path: deployment
+    repoURL: https://github.com/Caerulean-ai/arctic-infrastructure
+    targetRevision: HEAD
+  syncPolicy: 
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true

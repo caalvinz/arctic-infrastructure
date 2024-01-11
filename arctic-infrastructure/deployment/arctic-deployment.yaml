@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: arctic
+  name: arctic
+  namespace: arctic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arctic
+  template:
+    metadata:
+      labels:
+        app: arctic
+    spec:
+      containers:
+      - name: arctic
+        env: 
+        - name: DATABASE_URL
+          value: "postgres://postgres:arctic-db@dev-arctic-db.cniqalespell.us-east-1.rds.amazonaws.com:5432/db"
+        image: 968495558002.dkr.ecr.us-east-1.amazonaws.com/arctic:5fca416
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8088
+        ports:
+        - containerPort: 8088
